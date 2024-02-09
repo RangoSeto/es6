@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spread Operator</title>
+</head>
+<body>
+    
+    <script type="text/javascript">
+
+        // Spread Operator 
+
+        let val;
+        val = Math.max(1,2,5,7,9,11,13,15,17,19,-20,0);
+        console.log(val); // 19
+
+        val = Math.min(1,2,5,7,9,11,13,15,17,19,-20,0);
+        console.log(val); // -20
+
+        val  = [10,20,30,40,50];
+        console.log(Math.max(val)); // NaN
+        console.log(Math.max(val)); // NaN
+
+        console.log(Math.max(...val)); // 50
+        console.log(Math.min(...val)); // 10
+
+
+        function sumresult(num1,num2,num3){
+            return num1+num2+num3;
+        }
+
+        console.log(sumresult(1,2,3)); // 6
+        console.log(sumresult([1,2,3])); // 1,2,3undefinedundefined
+
+        const numbers = [10,20,30];
+        console.log(sumresult(...numbers)); // 60
+        console.log(sumresult.apply(null,numbers)); // 60 (အပေါ်ကဟာနဲ့တူတူပဲ)
+
+
+        function getval(val1,val2,val3){
+            console.log("val1 reault is = ",val1);
+            console.log("val2 reault is = ",val2);
+            console.log("val3 reault is = ",val3);
+        }
+
+        getval('su su','yu yu','nu nu'); // val1 reault is =  su su val2 reault is =  yu yu val3 reault is =  nu nu
+        getval(['su su','yu yu','nu nu']); // val1 reault is =  ['su su', 'yu yu', 'nu nu'] val2 reault is =  underfined val3 reault is =  underfined
+        getval(...['su su','yu yu','nu nu']); // val1 reault is =  su su val2 reault is =  yu yu val3 reault is =  nu nu
+        getval.apply(null,['su su','yu yu','nu nu']); // val1 reault is =  su su val2 reault is =  yu yu val3 reault is =  nu nu
+
+
+
+        const color = "Red"; // character arrayမလို့ခွဲလို့ရတာ numberတို့ဆိုမရ
+        console.log(color); // Red
+        console.log(...color); // R e d
+
+        getval(color); // val1 reault is =  Red val2 reault is =  underfined val3 reault is =  underfined
+        getval(...color);// val1 reault is =  R val2 reault is =  e val3 reault is =  d
+        // (ဒီမှာတော့ .apply() ကိုသံုးလို့မရဘူး သူကarrayပဲရမှာ)
+        
+
+        console.log(...[color]); // Red
+        console.log(...['Red']); // Red
+        console.log(['Red',"Green","Blue"]); // (3) ['Red', 'Green', 'Blue']
+        console.log(...['Red',"Green","Blue"]); // Red Green Blue
+
+        console.log(...color); // R e d
+        console.log([...color]); // (3) ['R', 'e', 'd']
+        console.log([...'Red']); // (3) ['R', 'e', 'd']
+
+        console.log(color.split('')); //(3) ['R', 'e', 'd']
+
+
+        console.log(['Red','Green','Blue']); // (3) ['Red', 'Green', 'Blue']
+        console.log([...'Red','Green','Blue']); // (5) ['R', 'e', 'd', 'Green', 'Blue']
+        console.log([...'Red',...'Green',...'Blue']); // (12) ['R', 'e', 'd', 'G', 'r', 'e', 'e', 'n', 'B', 'l', 'u', 'e']
+
+        
+        console.log([...'123',...'456','70',80,90]); // ['1', '2', '3', '4', '5', '6', '70', 80, 90]
+        console.log([...[123],...[456],...'789','70',80,90]); // (8) [123, 456, '7', '8', '9', '70', 80, 90]
+
+
+        // Spread in Array 
+
+        const phones = ['apple',"oppo","vivo","samung"];
+        const cars = ["toyota","suzuki","mazada"];
+        const computers = ["mac","aoc","acer"];
+
+        let myowns = [phones,cars,computers];
+        console.log(myowns); // (3) [Array(4), Array(3), Array(3)]
+
+        myowns = [...phones,...cars,...computers];
+        console.log(myowns); // (10) ['apple', 'oppo', 'vivo', 'samung', 'toyota', 'suzuki', 'mazada', 'mac', 'aoc', 'acer']
+
+
+        // Spread in Object
+        
+        const infos = {
+            name:"Honey Nway Oo",
+            gender:"Female",
+            age:22
+        };
+
+        const contacts = {
+            phone:"0911111",
+            city:"Yangon",
+            hascar:true
+        };
+
+        const profiles = {
+            nickname:"Honey",
+            age:20
+        }
+
+        let bios = {infos,contacts};
+        console.log(bios); // {infos: {…}, contacts: {…}}
+
+
+        bios = {...infos,...contacts};
+        console.log(bios); // {name: 'Honey Nway Oo', gender: 'Female', age: 22, phone: '0911111', city: 'Yangon', …}
+
+
+        bios = {...infos,...profiles};
+        console.log(bios); // {name: 'Honey Nway Oo', gender: 'Female', age: 20, nickname: 'Honey'}
+        // (age keyname ကတူနေလို့ နောက်ကဟာကိုပဲယူ overwrite infoအရင်ခေါ်လိူ့သူကအရင်အလုပ်လုပ်)
+
+
+        bios = {...profiles,...infos};
+        console.log(bios); // {nickname: 'Honey', age: 22, name: 'Honey Nway Oo', gender: 'Female'}
+
+        bios = {...profiles,...infos,country:"Myanmar"};
+        console.log(bios); // {nickname: 'Honey', age: 22, name: 'Honey Nway Oo', gender: 'Female', country: 'Myanmar'}
+
+        bios = {...profiles,...infos,age:"18"};
+        console.log(bios); // {nickname: 'Honey', age: 22, name: 'Honey Nway Oo', gender: 'Female', country: 'Myanmar'}
+
+        bios = {...profiles,...infos,..."Myanmar"};
+        console.log(bios); // {0: 'M', 1: 'y', 2: 'a', 3: 'n', 4: 'm', 5: 'a', 6: 'r', nickname: 'Honey', age: 22, name: 'Honey Nway Oo', gender: 'Female'}
+
+
+
+    </script>
+</body>
+</html>

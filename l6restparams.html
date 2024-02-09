@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rest Parameter / Rest Operator</title>
+</head>
+<body>
+    
+    <script type="text/javascript">
+
+        // Rest Parameter (...)
+
+        // Note : can't set first and between
+        //      : can contain just one rest parameter (must be in the last parameter)
+
+        function city(val){
+            return val;
+        }
+
+        console.log(city()); // underfined
+        console.log(city('yangon')); // yangon
+        console.log(city('yangon','madalay','bago')); // yangon
+
+        
+        function country(...vals){
+            return vals;
+        }
+
+        console.log(country('myanmar')); // ['myanmar']
+        console.log(country('myanmar','thailand','indonesia')); // ['myanmar', 'thailand', 'indonesia']
+
+
+        function place(location,...vals){
+            // return location; // chaung tar
+            return vals; // ['ngagpali', 'Ngwesang']
+        }
+
+        console.log(place('chaung tar','ngagpali','Ngwesang'));
+
+
+        let animal = new Function('...vals','return vals');
+        console.log(animal('cat','dog','fish')); // ['cat', 'dog', 'fish']
+
+
+        
+
+        function sumresult(...nums){
+            let total = 0;
+
+            for(const num of nums){
+                total += num;
+            }
+
+            return total;
+        }
+
+        // rest para က arrayကိုေတာ့ဒီလိုမလုပ်နိုင်
+        console.log(sumresult(10,20,30,40,50)); // 150
+        console.log(sumresult([10,20,30,40,50])); // doesn't work in array 010,20,30,40,50(0+array like this)
+
+
+
+
+    </script>
+</body>
+</html>

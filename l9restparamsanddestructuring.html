@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rest Params & Destructuring</title>
+</head>
+<body>
+    
+    <script type="text/javascript">
+
+        // => Array Destructuring
+
+        const countries = ["Myanmar","Thailand","Srilanka","Indonesia"];
+        console.log(countries[0],countries[1],countries[2],countries[3]); // Myanmar Thailand Srilanka Indonesia
+
+        const [mmk,th,slk,indo] = countries;
+        console.log(mmk,th,slk,indo); // Myanmar Thailand Srilanka Indonesia
+
+        const [,country1,,country4] = countries;
+        console.log(country1); // Thailand
+        console.log(country4); // Indonesia
+
+        // => Destructuring Assignment
+        const [fiat,...coin] = countries;
+        console.log(fiat); // Myanmar
+        console.log(coin); //  ['Thailand', 'Srilanka', 'Indonesia']
+
+
+        // => Object Destructuring
+
+        const  persons = {
+            firstname : "Honey Nway",
+            lastname : "Oo",
+            age : 22,
+            gender : "Female",
+            hascar : true,
+            city : "Yangon",
+            country : "Myanmar"
+        };
+
+        console.log(persons.firstname,persons.lastname,persons.gender,persons.city); // Honey Nway Oo 22 Yangon
+
+        const {firstname,lastname,city} = persons;
+        console.log(firstname,lastname,city); // Honey Nway Oo Yangon
+
+
+        const {gender:sex,age:old} = persons;
+        // console.log(gender,age); // l9restparamsanddestructuring.html:47 Uncaught ReferenceError: gender is not defined
+        console.log(sex,old); // Female 22
+
+
+        const {country,hascar,...other} = persons;
+        console.log(country); // Myanmar
+        console.log(hascar); // true
+        console.log(other); // {firstname: 'Honey Nway', lastname: 'Oo', age: 22, gender: '22', city: 'Yangon'}
+        // (...other) က country, hascar ကလွဲလို့ကျန်တာအကုန်ပြန်ကျလာတယ်
+
+
+
+        let employes = [
+            {
+                firstname:"Hla Nu",
+                lastname:"Tun"
+            },
+            (nickname)=>{
+                return `You can call me ${nickname}`;
+            }
+        ];
+
+        console.log(employes);
+        console.log(employes[0]);
+        console.log(employes[1]('Ma Ma'));
+
+
+        let [nickname,setname] = employes;
+
+        console.log(nickname); // {firstname: 'Hla Nu', lastname: 'Tun'}
+        console.log(nickname.firstname,nickname.lastname); // Hla Nu Tun
+        console.log(setname("Nu Nu")); // You can call me Nu Nu
+
+
+
+        // => Nested Destructuring
+
+        const staffs = [
+            {
+                name:"aung aung",
+                position:"representative",
+                department:"sales",
+                salary:200000
+            },
+            {
+                name:"tun tun",
+                position:"supervisor",
+                department:"sales",
+                salary:300000
+            },
+            {
+                name:"su su",
+                position:"manager",
+                department:"sales",
+                salary:500000
+            },
+            {
+                name:"nu nu",
+                position:"accountant",
+                department:"finance",
+                salary:250000
+            },
+            {
+                name:"yu yu",
+                position:"cfo",
+                department:"finance",
+                salary:700000
+            }
+        ];
+
+        // const {name} = staffs; // underfined
+        // const [name] = staffs; // {name: 'aung aung', position: 'representative', department: 'sales', salary: 200000}
+        // const [{name}] = staffs; // aung aung
+        // const [,{name}] = staffs; // tun tun
+        // const [,,{name}] = staffs; // su su
+        const [,,,{name}] = staffs; // nu nu
+        console.log(name);
+
+
+        const [,,,{position:title}] = staffs;
+        // console.log(position); // Uncaught ReferenceError: position is not defined
+        console.log(title); // accountant
+
+
+        const [,{salary},,{department}] = staffs;
+        console.log(salary); // 300000
+        console.log(department); // finance
+
+
+    </script>
+</body>
+</html>
